@@ -30,19 +30,16 @@ def upload():
         if "imageFile" not in request.files:
             return IMAGE_ERROR_MSG
         f = request.files["imageFile"]
-        # check if image file exist and is correct format
+
         if f and is_image_file(f.filename):
             size = int(request.form["resizeValue"])
 
-            # check image file size
             if size <= 0 or size >= 10000:
                 return IMAGE_ERROR_MSG
 
-            # resize by user input
             img = Image.open(f)
             img = img.resize((size, size), Image.ANTIALIAS)
 
-            # prompt user download new image file
             img_io = BytesIO()
             img.save(img_io, "jpeg")
             img_io.seek(0)
@@ -58,15 +55,12 @@ def spellchecker():
         if "file" not in request.files:
             return TEXT_FILE_ERROR_MSG
         f = request.files['file']
+
         if f and is_text_file(f.filename):
             f.save(secure_filename(f.filename))
             spell = SpellChecker()
-            # change the file to the text file you want to spell check
-            # currently spell checking file MisspelledText.txt
             checkfile = open(f.filename, 'r')
-
-            # output file that contains the correction for the file spell checked
-            # currently output to file CorrectedText.txt
+            
             spellcheckfile = BytesIO()
             for line in checkfile:
                 for word in line.split():
@@ -83,8 +77,5 @@ def spellchecker():
 
 
 app.secret_key = 'some key that you will never guess'
-# Run the app on localhost port 5000
-# debug = True -> you don't have to restart flask
-# for changes to go through, TURN OFF FOR PRODUCTION
 if __name__ == "__main__":
     app.run('127.0.0.1', 5000, debug=True)
