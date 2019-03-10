@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spellcheck And Resize</title>
+</head>
+<body>
+    <div id = "spellcheck">
+      <p>Spellcheck Text File</p>
+      <form action = "/spellchecker" method = "POST" enctype = "multipart/form-data">
+         <input type = "file" name = "file" />
+         <input type = "submit" value="Upload Text" name="Sumit"/>
+      </form>
+    </div>
+
+    <div id = "resize">
+        <p>Resize Image</p>
+        <form action="/resize" method="POST" enctype="multipart/form-data">
+            Enter Square Resize Value: <input type="number" name="resizeValue" value="100"><br>
+            <input type="file" name="imageFile">
+            <input type="submit" value="Upload Image" name="Submit">
+        </form>
+    </div>
+
+</body>
+</html>
